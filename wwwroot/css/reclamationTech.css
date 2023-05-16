@@ -1,0 +1,146 @@
+﻿.container {
+    max-width: 1100px;
+    margin: auto;
+    user-select:none;
+}
+
+.container .filter-list .filter-item {
+    border-radius: 8px;
+    border: 1px solid #ececec;
+    padding: 20px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .05) !important;
+}
+
+.container .filter-list .filter-item .title {
+    font-size: 20px;
+    color: var(--color-blue);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.container .filter-list .filter-item .filter label {
+    font-size: 15px;
+    color: #0C438C;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.container .filter-list .filter-item .filter select {
+    color: #838383;
+    outline: none;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.05) !important;
+}
+
+.container .filter-list .filter-item .filter select:active {
+    outline: none !important;
+    border-color: #ececec !important;
+}
+
+.custom-radio {
+    border-radius: 10px;
+    border: 1px solid #ececec;
+    overflow: hidden;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.05) !important;
+}
+
+.custom-radio .custom-radio-item input {
+    display: none;
+}
+
+.custom-radio .custom-radio-item input:checked + label {
+    background-color: #FF981C;
+}
+
+.custom-radio .custom-radio-item label {
+    color: #838383 !important;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    height: inherit;
+    margin-bottom: 0 !important;
+    font-size: 13px !important;
+}
+
+.custom-radio .custom-radio-item input:checked + label {
+    color: #fff !important;
+    background-color: #FF981C;
+}
+.btn-submit{
+    width:inherit;
+}
+.btn-submit button {
+    all: unset;
+    background-color: #0C438C !important;
+    width: 90%;
+    margin:auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    
+}
+.no-result .no-result-logo {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+
+.no-result.default-no-result .no-result-logo {
+    background-image: linear-gradient(to bottom, #dbffe8, var(--primary));
+}
+
+.mt-30 {
+    margin-top: 30px !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.no-result .no-result-logo img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+    line-height: 1.3;
+    font-size: 1.4rem;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.text-dark-blue {
+    color: #171347;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+
+.text-gray {
+    color: #818894 !important;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+} 

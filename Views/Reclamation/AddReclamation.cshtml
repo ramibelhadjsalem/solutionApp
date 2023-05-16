@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+}
+<link rel="stylesheet" href="~/css/addreclamation.css" />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 reclamation-form-container py-5 px-3">
+            <form asp-controller="Reclamation" asp-action="AddReclamation" method="Post" class="reclamation-form">
+                <h3 class="mb-4 mt-3">Create New Reclamation</h3>
+                <div class="mb-4">
+                    <label for="title" class="form-label">Problem Title</label>
+                    <input type="text" id="title" name="title" class="form-control" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="description" class="form-label">Problem Description</label>
+                    <textarea class="form-control" name="description" id="description" rows="4"></textarea>
+                </div>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="container-fluid d-flex justify-content-around px-3">
+                    <button type="submit" class="btn btn-success w-100">Create New Reclamation</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

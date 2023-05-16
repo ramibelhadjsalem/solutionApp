@@ -1,0 +1,67 @@
+﻿
+@model solutionApp.Models.RegisterModel
+@{
+}
+<link rel="stylesheet" href="~/css/login.css">
+<div class="container">
+        <div class="row login-container overflow-hidden">
+            <div class="col-12 col-md-6 pl-0 pe-0 overflow-hidden">
+                <img src="/images/front_login.jpg" class="img-cover" alt="Login">
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="login-card">
+                    <h1 class="font-20 font-weight-bold">Create new Account</h1>
+                    <form method="Post" asp-controller="Account" asp-action="Register">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label for="email" class="input-label">Email or Phone:</label>
+                            <input id="email" name="email" type="text" class="form-control "  aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="input-label">UserName :</label>
+                            <input id="username" name="username" type="text" class="form-control "  aria-describedby="Username help">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="input-label" >Password:</label>
+                            <input id="password" name="password" type="password" class="form-control "  aria-describedby="passwordHelp">
+                        </div> 
+                        <div class="form-group">
+                            <label for="confirmPassword" class="input-label" >ConfirmPassword:</label>
+                            <input id="confirmPassword" name="confirmPassword" type="password" class="form-control "  aria-describedby="passwordHelp">
+                        </div>
+                         <div class="text-center mt-20 mb-20">
+                            <span class="badge text-secondary d-inline-flex align-items-center justify-content-center">Login as</span>
+                        </div>
+                        <div class="form-group role-container text-center ml-5 d-flex flex-row justify-content-center">
+                            <div class="mx-3">
+                                 <input asp-format="Model.Role" type="radio" name="role" id="user"  value="User" class="d-none"/>
+                                 <label for="user" type="button" class="btn btn-sm btn-outline-secondary rounded-pill" checked>User</label>
+                            </div>
+                            <div>
+                                 <input asp-format="Model.Role" type="radio" name="role" id="Technicien"  value="Technicien" class="d-none"/>
+                                 <label for="Technicien" type="button" class="btn btn-sm btn-outline-secondary rounded-pill">Technicien</label>
+                            </div>                           
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-20">Register</button>
+                        
+                    </form>
+                    <div class="text-center mt-3">
+                        <span class="badge badge-circle-gray300 text-secondary d-inline-flex align-items-center justify-content-center">or</span>
+                    </div>
+                    <a  class="social-login mt-20 p-2 text-center d-flex align-items-center justify-content-center">
+                        <img src="/images/google.svg" class="mr-auto" alt=" google svg">
+                        <span class="flex-grow-1">SignUp with Google account</span>
+                    </a>
+                    <a  class="social-login mt-2 p-2 text-center d-flex align-items-center justify-content-center ">
+                        <img src="https://lms.rocket-soft.org/assets/default/img/auth/facebook.svg" class="mr-auto" alt="facebook svg">
+                        <span class="flex-grow-1">SignUp with Facebook account</span>
+                    </a>
+                   
+                    <div class="mt-2 text-center">
+                        <span>Don't have an account?</span>
+                        <a  asp-area="" asp-controller="Account" asp-action="Login" class="text-secondary font-weight-bold">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

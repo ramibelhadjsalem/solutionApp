@@ -1,0 +1,64 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model solutionApp.Models.ReclamationUserViewModel
+@{
+}
+<link rel="stylesheet" href="~/css/reclamationtechitem.css" />
+<div class="container-fluid w-100">
+    <div class="row container">
+        <div class="d-flex flex-wrap justify-content-between align-items-center px-0">
+            <h3 class="my-4">Your Reclamations</h3>
+            <a asp-controller="Reclamation" asp-action="AddReclamation" class="btn btn-success px-4 d-flex align-items-center"><i class="bi bi-plus-circle-fill me-2 align-middle"></i> New Reclamation </a>
+        </div>
+
+        @if (Model.reclamations.Count() > 0)
+        {
+            foreach (var rec in Model.reclamations)
+            {
+                <a asp-controller="Reclamation" asp-action="Detail" asp-route-id="@rec.Id" class="reclamation-link px-0">
+                    <div class="reclamation d-flex flex-wrap py-3 px-2 mb-3">
+                        <div class="col-12 col-md-8 d-flex flex-nowrap p-0 mb-4 mb-md-0">
+                            <div class="user-info mb-0">
+                                <img class="rounded-circle img-cover reclamation-avatar" src="@rec.User.Img" height="70" width="70" />
+                            </div>
+                            <div class="desciption ms-2 ps-2 border-left">
+                                <h3 class="username text-secondary">@rec.User.UserName</h3>
+                                <p class="tile text-gray">@Html.Raw(@rec.Title.Replace("\n", "<br>")) </p>
+                                <p class="details text-gray">@Html.Raw(@rec.Description.Replace("\n", "<br>")) </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="d-flex flex-nowrap justify-content-between">
+                                <span class="created-at text-gray">Creation Date</span>
+                                <span class="date ms-3 text-green text-end ">@rec.CreatedAt</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-2 ">
+                                <span class="text-gray">Status</span>
+                                <span class="@rec.Status">@rec.Status</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </a>
+            }
+
+        }
+        else
+        {
+            <div class="no-result default-no-result mt-5 d-flex align-items-center justify-content-center flex-column ">
+                <div class="no-result-logo">
+                    <img src="https://lms.rocket-soft.org/assets/default/img/no-results/support.png" alt="">
+                </div>
+                <div class="d-flex align-items-center flex-column mt-30 text-center">
+                    <h2 class="text-dark-blue">
+                        Result not found!
+                    </h2>
+                    <p class="mt-1 text-center text-gray font-weight-500">
+                        Sorry! We didnt find any Reclamations. Try different conditions.
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

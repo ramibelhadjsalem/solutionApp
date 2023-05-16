@@ -1,0 +1,58 @@
+﻿.reclamation {
+    border: 1px solid red !important;
+    border-color: #ececec !important;
+    background-color: white !important;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.05) !important;
+    transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out, border-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out;
+}
+.reclamation:hover{
+     box-shadow: 0 5px 10px 0 rgba(0,0,0,.25) !important;
+}
+.reclamation-avatar {
+    width: 70px !important;
+    min-width: 70px;
+    max-width: 70px;
+    height: 70px !important;
+}
+.reclamation .created-at{
+    text-decoration:none !important;
+    font-size:18px;
+}
+.border-left {
+    border-left: 2px solid #f1f1f1;
+}
+.reclamation .text-gray {
+    color: #818894 !important;
+}
+.reclamation .text-secondary {
+    color: #1f3b64 !important;
+}
+.reclamation .tile{
+    font-size:18px;
+    font-weight:600;
+}
+.reclamation .text-green {
+    color: #43d477;
+}
+.reclamation-link{
+    text-decoration:none;
+    text-transform:none;
+
+}
+.reclamation .NotProcessed {
+    color: #d28b46 !important;
+}
+.reclamation .NoSolution {
+    color: #b20000 !important;
+}
+.reclamation .Resolved {
+    color: #1da473 !important;
+}
+.reclamation .InProcess {
+    color: #006699 !important;
+}
+.reclamation .details{
+    max-height :200px ;
+    overflow-y:hidden;
+}
