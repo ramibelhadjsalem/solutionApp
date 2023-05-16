@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using solution.Data;
 
@@ -10,9 +11,11 @@ using solution.Data;
 namespace solutionApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230516171058_initiaCreate")]
+    partial class initiaCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,45 +261,6 @@ namespace solutionApp.Data.Migrations
                     b.ToTable("Reclamations");
                 });
 
-            modelBuilder.Entity("solutionApp.Data.Entities.Solution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("Enable")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("ReclamationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReclamationId");
-
-                    b.ToTable("Solutions");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("solution.Data.Entities.AppRole", null)
@@ -356,8 +320,7 @@ namespace solutionApp.Data.Migrations
                 {
                     b.HasOne("solution.Data.Entities.AppUser", "TechUser")
                         .WithMany()
-                        .HasForeignKey("TechUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("TechUserId");
 
                     b.HasOne("solution.Data.Entities.AppUser", "User")
                         .WithMany("Reclamations")
@@ -370,17 +333,6 @@ namespace solutionApp.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("solutionApp.Data.Entities.Solution", b =>
-                {
-                    b.HasOne("solutionApp.Data.Entities.Reclamation", "Reclamation")
-                        .WithMany("Solutions")
-                        .HasForeignKey("ReclamationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Reclamation");
-                });
-
             modelBuilder.Entity("solution.Data.Entities.AppRole", b =>
                 {
                     b.Navigation("UserRoles");
@@ -391,11 +343,6 @@ namespace solutionApp.Data.Migrations
                     b.Navigation("Reclamations");
 
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("solutionApp.Data.Entities.Reclamation", b =>
-                {
-                    b.Navigation("Solutions");
                 });
 #pragma warning restore 612, 618
         }

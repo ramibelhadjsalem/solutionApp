@@ -53,8 +53,10 @@ namespace solutionApp.Controllers
             {
                 reclamation = reclamation,
                 isOwner = User.GetUserId() == reclamation.UserId,
-                canEdit= reclamation.Status == ReclamationStatus.NotProcessed
-        };
+                canEdit= reclamation.Status == ReclamationStatus.NotProcessed,
+                canTake = User.IsInRole("Technicien") && reclamation.TechUserId ==null,
+                canAddSolution = reclamation.TechUserId ==User.GetUserId() && User.IsInRole("Technicien") && reclamation.Status ==ReclamationStatus.InProcess
+            };
             return View(reclamationDetail);
         }
         [HttpGet]
@@ -101,6 +103,23 @@ namespace solutionApp.Controllers
                 return LocalRedirect("~/reclamation");
             }
             return LocalRedirect("~/Error/Forbiden");
+        }
+
+        [Authorize(Policy = "RequireTechnicienRole")]
+        public async Task<IActionResult> TakeReclamation(int id)
+        {
+            var reclamation = await _reclamationRepository.Get(id);
+            if (reclamation == null) return LocalRedirect("~/Error/notfound");
+
+            if(reclamation.TechUserId == null)
+            {
+                reclamation.TechUserId = User.GetUserId();
+                reclamation.Status = ReclamationStatus.InProcess;
+                await _reclamationRepository.Update(reclamation);
+                return LocalRedirect("~/Reclamation/Detail/" + reclamation.Id);
+            }
+            return LocalRedirect("~/Error/Forbiden");
+
         }
 
     }

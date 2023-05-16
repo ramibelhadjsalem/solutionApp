@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using solution.Data;
 using solutionApp.Data.Repositories.ReclamationRepo;
+using solutionApp.Data.Repositories.SolutionRepo;
 using solutionApp.Data.Repositories.UserRepository;
 
 namespace solution.Extentions
@@ -17,6 +18,7 @@ namespace solution.Extentions
             /*   services.AddScoped<IUnitOfWork, UnitOfWork>();*/
             services.AddScoped<IReclamationRepository, ReclamationRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISolutionRepository, SolutionRepository>();
             return services;
         }
     }

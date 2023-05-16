@@ -11,8 +11,8 @@ using solution.Data;
 namespace solutionApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230516131529_AddingImgUser")]
-    partial class AddingImgUser
+    [Migration("20230516215738_solutiontitleanddesc")]
+    partial class solutiontitleanddesc
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,6 +239,9 @@ namespace solutionApp.Data.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TechUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -251,9 +254,50 @@ namespace solutionApp.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TechUserId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Reclamations");
+                });
+
+            modelBuilder.Entity("solutionApp.Data.Entities.Solution", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Enable")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("ReclamationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReclamationId");
+
+                    b.ToTable("Solutions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -313,13 +357,31 @@ namespace solutionApp.Data.Migrations
 
             modelBuilder.Entity("solutionApp.Data.Entities.Reclamation", b =>
                 {
+                    b.HasOne("solution.Data.Entities.AppUser", "TechUser")
+                        .WithMany()
+                        .HasForeignKey("TechUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("solution.Data.Entities.AppUser", "User")
                         .WithMany("Reclamations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("TechUser");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("solutionApp.Data.Entities.Solution", b =>
+                {
+                    b.HasOne("solutionApp.Data.Entities.Reclamation", "Reclamation")
+                        .WithMany("Solutions")
+                        .HasForeignKey("ReclamationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Reclamation");
                 });
 
             modelBuilder.Entity("solution.Data.Entities.AppRole", b =>
@@ -332,6 +394,11 @@ namespace solutionApp.Data.Migrations
                     b.Navigation("Reclamations");
 
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("solutionApp.Data.Entities.Reclamation", b =>
+                {
+                    b.Navigation("Solutions");
                 });
 #pragma warning restore 612, 618
         }

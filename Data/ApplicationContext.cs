@@ -15,6 +15,7 @@ namespace solution.Data
         }
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Reclamation> Reclamations { get; set; }
+        public DbSet<Solution> Solutions { get; set; }  
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +40,18 @@ namespace solution.Data
                .HasForeignKey(r => r.UserId)
                .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Reclamation>()
+                .HasOne(r => r.TechUser)
+                .WithMany()
+                .HasForeignKey(r => r.TechUserId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Solution>()
+                .HasOne(s => s.Reclamation)
+                .WithMany(r => r.Solutions)
+                .HasForeignKey(r => r.ReclamationId)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
 

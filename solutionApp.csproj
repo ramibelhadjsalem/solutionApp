@@ -16,6 +16,7 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.2" />
   </ItemGroup>
  <ItemGroup>
+   <Folder Include="Data\Migrations\" />
    <Folder Include="wwwroot\images\" />
  </ItemGroup>
 </Project>

@@ -11,8 +11,8 @@ using solution.Data;
 namespace solutionApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230515120053_initcreate")]
-    partial class initcreate
+    [Migration("20230516201425_techUsermig")]
+    partial class techUsermig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,6 +153,10 @@ namespace solutionApp.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("Img")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
 
@@ -213,6 +217,50 @@ namespace solutionApp.Data.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
+            modelBuilder.Entity("solutionApp.Data.Entities.Reclamation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Enable")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TechUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reclamations");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("solution.Data.Entities.AppRole", null)
@@ -268,6 +316,24 @@ namespace solutionApp.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("solutionApp.Data.Entities.Reclamation", b =>
+                {
+                    b.HasOne("solution.Data.Entities.AppUser", "TechUser")
+                        .WithMany()
+                        .HasForeignKey("TechUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("solution.Data.Entities.AppUser", "User")
+                        .WithMany("Reclamations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TechUser");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("solution.Data.Entities.AppRole", b =>
                 {
                     b.Navigation("UserRoles");
@@ -275,6 +341,8 @@ namespace solutionApp.Data.Migrations
 
             modelBuilder.Entity("solution.Data.Entities.AppUser", b =>
                 {
+                    b.Navigation("Reclamations");
+
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
