@@ -42,6 +42,7 @@ namespace solutionApp.Data.Repositories.ReclamationRepo
                     .Where(x => x.Enable)
                     .Include(x => x.User)
                     .Include(tech => tech.TechUser)
+                    .Include(r=> r.Solutions.OrderBy(s => s.CreatedAt))
                     .FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
     }

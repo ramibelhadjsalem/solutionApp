@@ -1,0 +1,61 @@
+﻿<link rel="stylesheet" href="~/css/header.css" asp-append-version="true" />
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light border-bottom mb-3">
+    <div class="container mx-2 mx-md-3 mx-lg-5">
+        <div class="d-flex align-items-center justify-content-between w-100 ">
+            <a class="navbar-brand navbar-order d-flex align-items-center justify-content-center mr-0 " asp-controller="Home" asp-action="Index">
+                Solution
+            </a>
+            <button class="navbar-toggler navbar-order " type="button" id="navbarToggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="mx-lg-30 d-none d-lg-flex flex-grow-1 navbar-toggle-content justify-content-lg-center " id="navbarContent">
+                <ul class="navbar-nav mr-auto d-flex align-items-center 2">
+                    <li class="nav-item">
+                        <a class="nav-link " asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " asp-controller="Reclamation" asp-action="Index">Reclamations</a>
+                    </li>
+                    <li class="nav-item 144">
+                        <a class="nav-link " href="#">About</a>
+                    </li>
+                    <li class="nav-item 146">
+                        <a class="nav-link " href="#">Profile</a>
+                    </li>
+                    <li class="nav-item 148">
+                        <a class="nav-link " href="#">Search</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-icons-or-start-live navbar-order d-none d-lg-flex">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="user-logged-in d-flex flex-nowrap">
+                        <div class="user-info dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                                <img src="https://www.gravatar.com/avatar/@(User.Identity.Name)" width="30" height="30" class="rounded-circle mx-1 " />
+                                @User.Identity.Name
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+                              
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="d-none d-lg-flex btn btn-sm btn-login px-2"> Login </a>
+                }
+
+            </div>
+        </div>
+    </div>
+</nav>

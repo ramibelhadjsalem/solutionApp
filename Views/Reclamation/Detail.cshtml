@@ -6,7 +6,7 @@
 }
 <link rel="stylesheet" href="~/css/reclamationtechitem.css" />
 <div class="container-fluid w-100">
-    <div class="row container">
+    <div class="row">
         <div class="d-flex flex-wrap justify-content-between align-items-center px-0">
             <h3 class="my-4">Reclamation</h3>
             @if (Model.isOwner && Model.canEdit)
@@ -64,7 +64,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <form asp-controller="Reclamation" asp-action="AddSolution" method="Post" class="reclamation-form">
+                        <form asp-controller="Solution" asp-action="AddSolution" method="Post" asp-route-id="@Model.reclamation.Id" class="reclamation-form">
                             <h3 class="mb-4 mt-3">Create New Solution</h3>
                             <div class="mb-4">
                                 <label for="title" class="form-label">Problem Title</label>

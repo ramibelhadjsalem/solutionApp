@@ -1,0 +1,40 @@
+﻿a:link {
+    transition: 0.2s all ease;
+}
+
+a {
+    color: #343434;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+    a:hover {
+        color: #343434;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.navbar-brand {
+    width: 170px;
+    height: 50px;
+    color: #1f3b64;
+    font-weight: 600;
+    font-size: 20px;
+    display: none;
+}
+
+.navbar-order .btn-login {
+    color: #ffffff !important;
+    background-color: #43d477 !important;
+    border-color: #43d477 !important;
+    box-shadow: 0 3px 8px 0 rgb(64 213 125 / 30%) !important;
+    transition: all 0.3s;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.navbar-light .navbar-brand:hover {
+    color: rgba(52, 52, 52, 0.9);
+}
