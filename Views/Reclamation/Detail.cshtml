@@ -6,8 +6,8 @@
 }
 <link rel="stylesheet" href="~/css/reclamationtechitem.css" />
 <div class="container-fluid w-100">
-    <div class="row">
-        <div class="d-flex flex-wrap justify-content-between align-items-center px-0">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 d-flex flex-wrap  justify-content-between align-items-center px-0">
             <h3 class="my-4">Reclamation</h3>
             @if (Model.isOwner && Model.canEdit)
             {
@@ -23,11 +23,14 @@
             }
             @if (Model.canAddSolution)
             {
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Add Solution</button>
+                <div class=" d-flex flex-nowrap">
+                    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#myModal">Add Solution</button>
+                    <a asp-controller="Solution" asp-action="NoSolution" asp-route-id="@Model.reclamation.Id" class="btn btn-outline-danger px-4 d-flex align-items-center"><i class="bi bi-x"></i> No Solution</a>
+                </div>
             }
 
         </div>
-        <div class="reclamation d-flex flex-wrap py-3 px-2 mb-3">
+        <div class="reclamation col-12 col-lg-8 d-flex flex-wrap py-3 px-2 mb-3">
             <div class="col-12 col-md-8 d-flex flex-nowrap p-0 mb-4 mb-md-0">
                 <div class="user-info mb-0">
                     <img class="rounded-circle img-cover reclamation-avatar" src="@Model.reclamation.User.Img" height="70" width="70" />
@@ -49,6 +52,44 @@
                 </div>
             </div>
         </div>
+        <div class="solutions col-12 col-lg-8 mb-5 px-0">
+            <h3 class="my-4">Solutions</h3>
+            @foreach (var solution in Model.reclamation.Solutions)
+            {
+                <div class="solution reclamation row px-2 py-3 mb-3">
+                    <div class="col-12 col-md-8 d-flex flex-nowrap p-0 mb-4 mb-md-0">
+                        <div class="user-info mb-0">
+                            <img class="rounded-circle img-cover reclamation-avatar" src="@Model.reclamation.User.Img" height="70" width="70" />
+                        </div>
+                        <div class="desciption ms-2 ps-2 border-left">
+                            <h3 class="username text-secondary">@Model.reclamation.TechUser.UserName</h3>
+                            <p class="tile text-gray">@Html.Raw(@solution.Title.Replace("\n", "<br>")) </p>
+                            <p class="text-gray">@Html.Raw(@solution.Description.Replace("\n", "<br>")) </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="d-flex flex-nowrap justify-content-between">
+                            <span class="created-at text-gray">Creation Date</span>
+                            <span class="date ms-3 text-green text-end ">@solution.CreatedAt</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mt-2 ">
+                            <span class="text-gray">Status</span>
+                            <span class="@solution.status">@solution.status</span>
+                        </div>
+                        @if(solution.status==solutionApp.Data.Entities.SolutionStatus.NotSeen & Model.isOwner)
+                        {
+                              <div class="d-flex align-items-center justify-content-between mt-2">
+                                <a asp-controller="Solution" asp-action="SolutionWorking" asp-route-id="@solution.Id" class="btn btn-sm btn-success px-4 d-flex align-items-center me-3"><i class="bi bi-pencil-square"></i>Working</a>
+                                <a asp-controller="Solution" asp-action="SolutionNotWorking" asp-route-id="@solution.Id" class="btn btn-sm btn-danger px-4 d-flex align-items-center"><i class="bi bi-pencil-square"></i> Not Working</a>
+                                
+                             </div>
+                        }
+                      
+                    </div>
+                </div>
+            }
+        </div>
+
 
 
     </div>

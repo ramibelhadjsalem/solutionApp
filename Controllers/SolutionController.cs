@@ -38,11 +38,70 @@ namespace solutionApp.Controllers
                     Reclamation = reclamation
                 };
                 var result= await _solutionRepository.Create(solution);
+                reclamation.Status = ReclamationStatus.Resolved;
+                var resultOfRec= await _reclamationRepository.Update(reclamation);
                 return LocalRedirect("~/Reclamation/Detail/" + id);
             }
           
 
             return LocalRedirect("~/Reclamation/Detail/"+id);
         }
+      
+        [Authorize(Policy = "RequireTechnicienRole")]
+        public async Task<IActionResult> NoSolution(int id)
+        {
+            var reclamation = await _reclamationRepository.Get(id);
+            if (reclamation == null) return LocalRedirect("~/Error/notFound");
+            if (reclamation.TechUserId != User.GetUserId()) return LocalRedirect("~/Error/Frobiden");
+
+            reclamation.Status = ReclamationStatus.NoSolution;
+
+            var result = await _reclamationRepository.Update(reclamation);
+            return LocalRedirect("~/Reclamation/Detail/" + id);
+
+
+        }
+        [Authorize(Policy = "RequireUserRole")]
+        public async Task<IActionResult> SolutionWorking(int id)
+        {
+            var solution =await _solutionRepository.getInfo(id);
+            if (solution == null) return LocalRedirect("~/Error/notFound");
+            if (solution.Reclamation.UserId != User.GetUserId()) return LocalRedirect("~/Error/Frobiden");
+
+            solution.status = SolutionStatus.Working;
+            var result = await _solutionRepository.Update(solution);
+
+            var reclamation = solution.Reclamation;
+            reclamation.Status = ReclamationStatus.Resolved;
+            var result2 = await _reclamationRepository.Update(reclamation);
+
+
+        
+            return LocalRedirect("~/Reclamation/Detail/" + reclamation.Id);
+
+            
+
+
+        }
+        [Authorize(Policy = "RequireUserRole")]
+        public async Task<IActionResult> SolutionNotWorking(int id)
+        {
+            var solution = await _solutionRepository.getInfo(id);
+            if (solution == null) return LocalRedirect("~/Error/notFound");
+            if (solution.Reclamation.UserId != User.GetUserId()) return LocalRedirect("~/Error/Frobiden");
+
+            solution.status = SolutionStatus.NotWorking;
+            var result = await _solutionRepository.Update(solution);
+
+            var reclamation = solution.Reclamation;
+            reclamation.Status = ReclamationStatus.InProcess;
+            var result2 = await _reclamationRepository.Update(reclamation);
+
+
+
+            return LocalRedirect("~/Reclamation/Detail/" +reclamation.Id);
+
+        }
+
     }
 }

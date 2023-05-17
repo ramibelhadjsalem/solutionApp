@@ -27,10 +27,10 @@ namespace solutionApp.Controllers
             return View();
         }
         [HttpPost]
-        
+
         public async Task<IActionResult> Login(LoginModel model)
         {
-         
+          
             if (ModelState.IsValid)
             {
                 var user =  _userManager.Users.FirstOrDefault(x => x.Email == model.Email || x.UserName == model.Email);

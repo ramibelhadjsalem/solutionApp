@@ -1,4 +1,5 @@
-﻿using solution.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using solution.Data;
 using solutionApp.Data.Entities;
 
 namespace solutionApp.Data.Repositories.SolutionRepo
@@ -11,5 +12,10 @@ namespace solutionApp.Data.Repositories.SolutionRepo
         {
             _context = dbContextFactory;
         }
+
+        public async Task<Solution> getInfo(int id) => await _context.Solutions
+                    .Include(x => x.Reclamation)
+                    .Where(x => x.Enable)
+                    .FirstOrDefaultAsync(x => x.Id == id);
     }
 }
